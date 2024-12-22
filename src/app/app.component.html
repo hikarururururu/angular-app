@@ -2,7 +2,12 @@
 
 <div>
   <input type="number" [(ngModel)]="number1" placeholder="数値1">
-  +
+  <select [(ngModel)]="operator">
+    <option value="+">+</option>
+    <option value="-">-</option>
+    <option value="*">×</option>
+    <option value="/">÷</option>
+  </select>
   <input type="number" [(ngModel)]="number2" placeholder="数値2">
   <button (click)="calculate()">計算</button>
 </div>

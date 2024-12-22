@@ -11,9 +11,23 @@ import { FormsModule } from '@angular/forms';
 export class AppComponent {
   number1: number = 0;
   number2: number = 0;
+  operator: string = '+';
   result: number = 0;
 
   calculate() {
-    this.result = this.number1 + this.number2;
+    switch (this.operator) {
+      case '+':
+        this.result = this.number1 + this.number2;
+        break;
+      case '-':
+        this.result = this.number1 - this.number2;
+        break;
+      case '*':
+        this.result = this.number1 * this.number2;
+        break;
+      case '/':
+        this.result = this.number2 !== 0 ? this.number1 / this.number2 : 0;
+        break;
+    }
   }
 }
