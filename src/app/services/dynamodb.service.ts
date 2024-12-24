@@ -1,11 +1,15 @@
+import { Injectable } from '@angular/core';
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient, PutCommand } from '@aws-sdk/lib-dynamodb';
 
+@Injectable({
+  providedIn: 'root'
+})
 export class DynamoDBService {
   private client: DynamoDBDocumentClient;
 
   constructor() {
-    const ddbClient = new DynamoDBClient({ region: 'us-east-1' });
+    const ddbClient = new DynamoDBClient({ region: 'ap-northeast-1' });
     this.client = DynamoDBDocumentClient.from(ddbClient);
   }
 
