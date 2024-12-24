@@ -4,6 +4,7 @@ import express from 'express';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import bootstrap from './main.server';
+import { DynamoDBService } from './app/services/dynamodb.service';
 
 const serverDistFolder = dirname(fileURLToPath(import.meta.url));
 const browserDistFolder = resolve(serverDistFolder, '../browser');
@@ -11,6 +12,7 @@ const indexHtml = join(serverDistFolder, 'index.server.html');
 
 const app = express();
 const commonEngine = new CommonEngine();
+const dynamoDBService = new DynamoDBService();
 
 /**
  * Example Express Rest API endpoints can be defined here.
@@ -23,6 +25,16 @@ const commonEngine = new CommonEngine();
  * });
  * ```
  */
+
+app.post('/api/saveCalculation', async (req, res) => {
+  const calculation = req.body;
+  try {
+    await dynamoDBService.saveCalculationHistory(calculation);
+    res.status(200).send('Calculation history saved successfully');
+  } catch (error) {
+    res.status(500).send('Error saving calculation history');
+  }
+});
 
 /**
  * Serve static files from /browser
